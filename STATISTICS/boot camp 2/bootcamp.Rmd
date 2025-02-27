@@ -1,0 +1,15 @@
+---
+title: "Untitled"
+author: "s"
+date: "2024-01-05"
+output: html_document
+---
+
+`
+```{r}
+library(tidyverse)
+```
+```{r}
+read.csv("C:/Users/AJITH N/OneDrive/Desktop/data worksheet pharma.csv")
+```
+
