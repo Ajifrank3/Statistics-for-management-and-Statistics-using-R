@@ -1,0 +1,157 @@
+<!-- R Commander Markdown Template -->
+
+Replace with Main Title
+=======================
+
+### AJITH N
+
+### `r as.character(Sys.Date())`
+
+```{r echo=FALSE}
+# include this code chunk as-is to set options
+knitr::opts_chunk$set(comment=NA, prompt=TRUE, out.width=750, fig.height=8, fig.width=8)
+library(Rcmdr)
+library(car)
+library(RcmdrMisc)
+```
+
+```{r}
+Dataset <- readXL("D:/BA FILES/STATISTICS 2/Data Set-20240206/BComCA.xlsx", rownames=FALSE, header=TRUE, na="", 
+  sheet="B.COM CA", stringsAsFactors=TRUE)
+```
+
+```{r}
+library(abind, pos=16)
+```
+
+
+```{r}
+library(e1071, pos=17)
+```
+
+
+
+1. What is the average % of the scores (12th %) of those who opted for Commerce UG
+Degree in the year 2021?
+```{r}
+numSummary(Dataset[,"PercentageMarks", drop=FALSE], statistics=c("mean", "sd", "IQR", "quantiles"), quantiles=c(0,
+  .25,.5,.75,1))
+```
+ interpretation
+
+ 1.the average score of the student those who joined in commerce degree is 65%
+ 
+ 2. 50% of students scored more than 50% and remaining 50% of them scored below 50%
+ 
+ 3. top 25% of students score 73%
+ 
+
+### Histogram: PercentageMarks
+```{r}
+with(Dataset, Hist(PercentageMarks, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+ interpretation
+ 
+ 1.more number of students got 50 to 75% of marks and less number of students got 85 to 95%
+
+
+### Boxplot: ~ PercentageMarks
+```{r}
+Boxplot( ~ PercentageMarks, data=Dataset, id=list(method="y"))
+```
+
+
+### Histogram: X12th.Marks
+```{r}
+with(Dataset, Hist(X12th.Marks, groups=Gender, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+ interpretation
+ 
+ 1. the more number of girl students got 400 to 450 marks and less number of them got 550 to 600
+
+ 2. number of lowet mark his very low of them got
+
+3. the more number of girl students got 400 to 450 marks and less number of them got 550 to 600
+
+4. comparing to boys and girls boys are scored high scores
+
+
+```{r}
+Dataset <- readXL("D:/BA FILES/STATISTICS 2/Data Set-20240206/BSc IT.xlsx", rownames=FALSE, header=TRUE, na="", 
+  sheet="B.SC IT", stringsAsFactors=TRUE)
+```
+
+
+### Numerical Summaries: Dataset
+2. What is the average % of the scores (12th %) of those who opted for Computer
+Science UG Degree in the year 2021?
+```{r}
+numSummary(Dataset[,"PercentageMarks", drop=FALSE], statistics=c("mean", "sd", "IQR", "quantiles"), quantiles=c(0,
+  .25,.5,.75,1))
+```
+
+interpretation
+
+1.the average score of the student those who joined in computer science degree is 64%
+
+2. 50% of students scored more than 50% and remaining 50% of them scored below 50%
+
+ 3. top 25% of students score 73%
+
+
+
+### Histogram: PercentageMarks
+```{r}
+with(Dataset, Hist(PercentageMarks, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+
+
+
+### Boxplot: ~ PercentageMarks
+```{r}
+Boxplot( ~ PercentageMarks, data=Dataset, id=list(method="y"))
+```
+
+```{r}
+Dataset <- readXL("D:/BA FILES/STATISTICS 2/Data Set-20240206/CombinedITCA.xlsx", rownames=FALSE, header=TRUE, 
+  na="", sheet="MergedDataset", stringsAsFactors=TRUE)
+```
+
+
+
+
+### Independent-Samples t-Test: PercentageMarks ~ PgmName
+```{r}
+t.test(PercentageMarks ~ PgmName, alternative = "two.sided", conf.level = .95, var.equal = FALSE, data = Dataset)
+```
+
+
+### Independent-Samples t-Test: PercentageMarks ~ Gender
+```{r}
+t.test(PercentageMarks ~ Gender, alternative = "two.sided", conf.level = .95, var.equal = FALSE, data = Dataset)
+```
+
+
+### Histogram: PercentageMarks
+```{r}
+with(Dataset, Hist(PercentageMarks, groups=PgmName, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+
+
+### Histogram: PercentageMarks
+```{r}
+with(Dataset, Hist(PercentageMarks, groups=Gender, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+
+
+### Independent-Samples t-Test: X12th.Marks ~ Gender
+```{r}
+t.test(X12th.Marks ~ Gender, alternative = "two.sided", conf.level = .95, var.equal = FALSE, data = Dataset)
+```
+
+
+### Histogram: X12th.Marks
+```{r}
+with(Dataset, Hist(X12th.Marks, groups=Gender, scale="frequency", breaks="Sturges", col="darkgray"))
+```
+
